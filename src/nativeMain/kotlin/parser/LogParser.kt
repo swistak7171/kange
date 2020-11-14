@@ -20,6 +20,25 @@ class LogParser {
             .toList()
     }
 
+    fun createChangelog(entries: List<DateEntry>): String {
+        return buildString {
+            entries.forEach { dateEntry ->
+                append("# ")
+                append(dateEntry.date)
+                appendLine()
+                dateEntry.entries.forEach { entry ->
+                    append("- ")
+                    append(entry.message)
+                    append(" (")
+                    append(entry.hash)
+                    append(")")
+                    appendLine()
+                }
+                appendLine()
+            }
+        }
+    }
+
     companion object {
         private const val DELIMITER: Char = ';'
         const val GIT_LOG_FORMAT: String = "%H$DELIMITER%ad$DELIMITER%B"

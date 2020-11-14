@@ -5,6 +5,7 @@ import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.options.option
 import parser.LogParser
 import util.CommandHelper
+import util.FileHelper
 import util.execute
 import util.tryOrNull
 
@@ -34,7 +35,7 @@ class GenerateCommand : CliktCommand(
         completionCandidates = CompletionCandidates.Path
     )
 
-    val outputFileName: String? by option(
+    val outputFilename: String? by option(
         names = arrayOf(
             "-f",
             "--filename"
@@ -54,6 +55,10 @@ class GenerateCommand : CliktCommand(
         } ?: error("Specified directory is not a Git repository")
 
         val entries = parser.parse(result)
-        echo(entries)
+        val changelog = parser.createChangelog(entries)
+
+        val filename = outputFilename ?: defaultOutputFilename
+        FileHelper.write(filename, changelog)
+        echo(FileHelper.read(filename))
     }
 }
