@@ -3,9 +3,9 @@ package command
 import com.github.ajalt.clikt.completion.CompletionCandidates
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.options.option
+import file.FileHelper
 import parser.LogParser
 import util.CommandHelper
-import util.FileHelper
 import util.execute
 import util.tryOrNull
 

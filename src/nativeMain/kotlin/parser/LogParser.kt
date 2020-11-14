@@ -36,7 +36,7 @@ class LogParser {
                 }
                 appendLine()
             }
-        }
+        }.trim()
     }
 
     companion object {

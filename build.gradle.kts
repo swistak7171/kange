@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "pl.kamilszustak"
-version = "0.1"
+version = "0.1.0"
 
 kotlin {
     val hostOs = System.getProperty("os.name")
