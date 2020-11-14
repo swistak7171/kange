@@ -14,6 +14,7 @@ class GenerateCommand : CliktCommand(
 ) {
     private val parser: LogParser = LogParser()
     private val gitStatusCommand: String = "git log --oneline --no-abbrev --date=short --pretty=format:${LogParser.GIT_LOG_FORMAT}"
+    private val defaultOutputFilename: String = "CHANGELOG.md"
 
     val path: String? by option(
         names = arrayOf(
@@ -54,6 +55,5 @@ class GenerateCommand : CliktCommand(
 
         val entries = parser.parse(result)
         echo(entries)
-//        echo(result)
     }
 }
