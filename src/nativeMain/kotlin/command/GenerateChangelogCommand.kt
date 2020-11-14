@@ -9,8 +9,8 @@ import util.CommandHelper
 import util.execute
 import util.tryOrNull
 
-class GenerateCommand : CliktCommand(
-    help = "Generate changelog",
+class GenerateChangelogCommand : CliktCommand(
+    help = "Generate changelog file",
     name = "generate"
 ) {
     private val parser: LogParser = LogParser()
