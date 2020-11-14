@@ -1,12 +1,11 @@
 plugins {
     kotlin("multiplatform") version "1.4.10"
+    id("application")
 }
+
 group = "pl.kamilszustak"
 version = "0.1"
 
-repositories {
-    mavenCentral()
-}
 kotlin {
     val hostOs = System.getProperty("os.name")
     val isMingwX64 = hostOs.startsWith("Windows")
@@ -24,9 +23,20 @@ kotlin {
             }
         }
     }
-    
+
     sourceSets {
-        val nativeMain by getting
+        val nativeMain by getting {
+            dependencies {
+                implementation("com.github.ajalt.clikt:clikt:3.0.1")
+            }
+        }
+
         val nativeTest by getting
+    }
+}
+
+allprojects {
+    repositories {
+        mavenCentral()
     }
 }
