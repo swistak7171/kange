@@ -1,10 +1,14 @@
 plugins {
-    kotlin("multiplatform") version "1.4.10"
-    id("application")
+    kotlin("multiplatform") version "1.4.21"
+    application
 }
 
 group = "pl.kamilszustak"
-version = "0.1.0"
+version = "1.0"
+
+repositories {
+    mavenCentral()
+}
 
 kotlin {
     val hostOs = System.getProperty("os.name")
@@ -24,19 +28,40 @@ kotlin {
         }
     }
 
+    jvm {
+        compilations.all {
+            kotlinOptions.jvmTarget = "1.8"
+        }
+        testRuns["test"].executionTask.configure {
+            useJUnitPlatform()
+        }
+        withJava()
+    }
+
     sourceSets {
-        val nativeMain by getting {
+        val nativeMain by getting
+        val nativeTest by getting
+
+        val commonMain by getting {
             dependencies {
-                implementation("com.github.ajalt.clikt:clikt:3.0.1")
+                implementation("com.github.ajalt.clikt:clikt:3.1.0")
+                implementation("com.russhwolf:multiplatform-settings:0.6.3")
+            }
+        }
+        val commonTest by getting {
+            dependencies {
+                implementation(kotlin("test-common"))
+                implementation(kotlin("test-annotations-common"))
             }
         }
 
-        val nativeTest by getting
-    }
-}
-
-allprojects {
-    repositories {
-        mavenCentral()
+        val jvmMain by getting
+        val jvmTest by getting {
+            dependencies {
+                implementation(kotlin("test-junit5"))
+                implementation("org.junit.jupiter:junit-jupiter-api:5.6.0")
+                runtimeOnly("org.junit.jupiter:junit-jupiter-engine:5.6.0")
+            }
+        }
     }
 }

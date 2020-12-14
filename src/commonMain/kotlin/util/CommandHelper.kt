@@ -1,18 +1,18 @@
 package util
 
-import kotlin.native.Platform.osFamily
+expect fun getCommandSeparator(): String
 
 object CommandHelper {
     fun chain(vararg commands: String): String {
-        val separator = when (osFamily) {
-            OsFamily.WINDOWS -> " & "
-            else -> " ; "
-        }
+        val separator = getCommandSeparator()
+
         return buildString {
             commands.forEach { command ->
                 append(command)
+                append(" ")
                 append(separator)
+                append(" ")
             }
-        }.dropLast(1)
+        }.dropLast(3)
     }
 }

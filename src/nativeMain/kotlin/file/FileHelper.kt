@@ -2,14 +2,14 @@ package file
 
 import platform.posix.*
 
-object FileHelper {
-    fun write(filename: String, content: String) {
+actual object FileHelper {
+    actual fun write(filename: String, content: String) {
         val filePointer = fopen(filename, FileMode.WRITE.value)
         fputs(content, filePointer)
         fclose(filePointer)
     }
 
-    fun read(filename: String): String {
+    actual fun read(filename: String): String {
         val filePointer = fopen(filename, FileMode.READ.value)
 
         return buildString {

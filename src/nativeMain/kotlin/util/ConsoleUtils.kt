@@ -7,7 +7,7 @@ import platform.posix._pclose
 import platform.posix._popen
 import platform.posix.fgets
 
-fun execute(
+actual fun execute(
     command: String
 ): String {
     val outputPointer = _popen(command, FileMode.READ.value) ?: error("Failed to run command: $command")

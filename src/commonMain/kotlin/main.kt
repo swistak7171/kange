@@ -1,4 +1,3 @@
-
 import com.github.ajalt.clikt.core.subcommands
 import command.GenerateChangelogCommand
 import command.MainCommand
