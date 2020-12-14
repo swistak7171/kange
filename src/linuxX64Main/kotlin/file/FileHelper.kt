@@ -1,5 +1,6 @@
 package file
 
+import FileMode
 import platform.posix.*
 
 actual object FileHelper {
@@ -22,7 +23,6 @@ actual object FileHelper {
                     append(character.toChar())
                 }
             }
-
         }
     }
 }

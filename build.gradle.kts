@@ -17,10 +17,18 @@ kotlin {
         hostOs == "Mac OS X" -> macosX64("native")
         hostOs == "Linux" -> linuxX64("native")
         isMingwX64 -> mingwX64("native")
-        else -> throw GradleException("Host OS is not supported in Kotlin/Native.")
+        else -> throw GradleException("Host OS ($hostOs) is not supported in Kotlin/Native.")
     }
 
-    nativeTarget.apply {
+    linuxX64 {
+        binaries {
+            executable {
+                entryPoint = "main"
+            }
+        }
+    }
+
+    mingwX64 {
         binaries {
             executable {
                 entryPoint = "main"
@@ -32,16 +40,15 @@ kotlin {
         compilations.all {
             kotlinOptions.jvmTarget = "1.8"
         }
+
         testRuns["test"].executionTask.configure {
             useJUnitPlatform()
         }
+
         withJava()
     }
 
     sourceSets {
-        val nativeMain by getting
-        val nativeTest by getting
-
         val commonMain by getting {
             dependencies {
                 implementation("com.github.ajalt.clikt:clikt:3.1.0")
@@ -54,6 +61,12 @@ kotlin {
                 implementation(kotlin("test-annotations-common"))
             }
         }
+
+        val linuxX64Main by getting
+        val linuxX64Test by getting
+
+        val mingwX64Main by getting
+        val mingwX64Test by getting
 
         val jvmMain by getting
         val jvmTest by getting {

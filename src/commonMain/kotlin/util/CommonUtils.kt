@@ -13,3 +13,11 @@ inline fun <T> tryOrNull(action: () -> T): T? =
 
 inline fun <T : Any, R> T?.useOrNull(action: (T) -> R): R? =
     if (this != null) action(this) else null
+
+inline fun String?.toBooleanOrNull(): Boolean? {
+    return when (this?.toLowerCase()) {
+        "true" -> true
+        "false" -> false
+        else -> null
+    }
+}

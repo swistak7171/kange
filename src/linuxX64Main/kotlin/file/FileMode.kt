@@ -1,5 +1,3 @@
-package file
-
 enum class FileMode(
     val value: String,
 ) {
